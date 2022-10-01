@@ -1,0 +1,69 @@
+.listing-brand-container {
+  .header {
+    display: flex;
+    text-align: center;
+    justify-content: space-between;
+
+    .title {
+      font-weight: 600;
+      font-size: 24px;
+      line-height: 32px;
+      color: var(--primary-dark-1);
+      margin-right: 24px;
+    }
+
+    .add-brand {
+      height: 40px;
+    }
+  }
+
+  .body {
+    .row-data {
+      margin-top: 8px;
+      margin-bottom: 8px;
+
+      .circle {
+        height: 24px;
+        width: 24px;
+        border-radius: 50%;
+        border: 1px solid var(--natural-5);
+        margin-right: 40px;
+      }
+
+      .line {
+        border-left: 2px solid var(--primary-dark-1);
+        height: 64px;
+      }
+
+      .model {
+        .title {
+          font-weight: 500;
+          font-size: 20px;
+          line-height: 30px;
+          color: #2f465f;
+        }
+
+        .model-detail {
+          display: flex;
+          text-align: center;
+          justify-content: space-between;
+
+          .model-detail-line {
+            border-left: 1px solid var(--natural-4);
+            height: 16px;
+            margin-left: 16px;
+            margin-right: 16px;
+          }
+        }
+      }
+
+      .status .dot {
+        height: 12px;
+        width: 12px;
+        border-radius: 50%;
+        background: #1f7b4d;
+        margin-right: 16px;
+      }
+    }
+  }
+}

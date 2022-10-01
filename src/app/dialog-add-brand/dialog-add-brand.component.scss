@@ -1,0 +1,21 @@
+.dialog-add-brand-container {
+  .header {
+    margin-bottom: 8px;
+
+    .button-close {
+      cursor: pointer;
+      background: var(--natural-3);
+      border-radius: 50%;
+      border: 1px solid var(--natural-4);
+    }
+  }
+
+  .body {
+    .title{
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 24px;
+      color: var(--natural-8);
+    }
+  }
+}
