@@ -1,0 +1,62 @@
+<div class="dialog-add-brand-container">
+  <div class="header d-flex justify-content-between align-items-center">
+    <div>
+      <div>Add Car Brand</div>
+      <div>Setup new car brand</div>
+    </div>
+    <div
+      (click)="closeDialog()"
+      class="button-close d-flex justify-content-between align-items-center"
+    >
+      <mat-icon>close</mat-icon>
+    </div>
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <div class="body">
+    <div class="title mt-3 mb-1">Brand Log</div>
+    <mat-divider class="mb-1"></mat-divider>
+    <input
+      type="file"
+      id="avatar"
+      name="avatar"
+      accept="image/png, image/jpeg"
+    />
+    <div class="title mt-4 mb-1">Brand Details</div>
+    <mat-divider class="mb-1"></mat-divider>
+
+    <div class="row">
+      <div class="col-6">
+        <div>Brand Name</div>
+        <mat-form-field appearance="outline">
+          <input matInput placeholder="Brand Name" />
+        </mat-form-field>
+      </div>
+      <div class="col-6">
+        <div>Brand Status</div>
+        <mat-form-field appearance="fill">
+          <mat-select [(value)]="selectedStatus">
+            <mat-option [value]="status.value" *ngFor="let status of statuses">
+              {{ status.viewValue }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div>Brand Description</div>
+    <mat-form-field appearance="outline">
+      <textarea matInput placeholder="Brand Description"></textarea>
+    </mat-form-field>
+  </div>
+
+  <div class="footer d-flex justify-content-end">
+    <button mat-raised-button class="mr-4" (click)="closeDialog()">
+      <span>Cancel</span>
+    </button>
+    <button mat-raised-button color="primary" (click)="createBrand()">
+      <span>Create Brand</span>
+    </button>
+  </div>
+</div>
