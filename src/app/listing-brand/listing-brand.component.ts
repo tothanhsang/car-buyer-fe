@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Actions, Store } from '@ngxs/store';
 import { DialogAddBrandComponent } from '../dialog-add-brand/dialog-add-brand.component';
+import { BrandState, LoadBrandList } from '../stores/brand';
 
 @Component({
   selector: 'app-listing-brand',
@@ -20,11 +22,25 @@ export class ListingBrandComponent implements OnInit {
 
   constructor(
     private _dialogCtrl: MatDialog,
+    private _actions: Actions,
+    private _store: Store,
   ) { }
 
   ngOnInit(): void {
     // this.openDialogAddBrand();
+    this._store.dispatch(
+      new LoadBrandList({ name: '1233' })
+    );
+
+    this._store
+      .select(BrandState.getBrand)
+      .subscribe((data) => {
+        if (!data) return;
+        console.log("data: ", data);
+      });
+
   }
+  
 
   openDialogAddBrand(): void {
     this._dialogCtrl.open(DialogAddBrandComponent, {

@@ -17,6 +17,11 @@ import { DialogAddBrandComponent } from './dialog-add-brand/dialog-add-brand.com
 import { BrandDetailComponent } from './brand-detail/brand-detail.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
+import { NgxsModule } from '@ngxs/store';
+import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
+import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
+import { BrandState } from './stores/brand';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -39,6 +44,10 @@ import { MatSelectModule } from '@angular/material/select';
     MatFormFieldModule,
     MatDialogModule,
     MatSelectModule,
+    NgxsModule.forRoot([BrandState]),
+    // NgxsReduxDevtoolsPluginModule.forRoot(),
+    // NgxsLoggerPluginModule.forRoot(),
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
