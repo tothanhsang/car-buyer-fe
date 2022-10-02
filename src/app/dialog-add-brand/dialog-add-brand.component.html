@@ -13,50 +13,88 @@
   </div>
 
   <mat-divider></mat-divider>
-
-  <div class="body">
-    <div class="title mt-3 mb-1">Brand Log</div>
-    <mat-divider class="mb-1"></mat-divider>
-    <input
-      type="file"
-      id="avatar"
-      name="avatar"
-      accept="image/png, image/jpeg"
-    />
-    <div class="title mt-4 mb-1">Brand Details</div>
-    <mat-divider class="mb-1"></mat-divider>
-
-    <div class="row">
-      <div class="col-6">
-        <div>Brand Name</div>
-        <mat-form-field appearance="outline">
-          <input matInput placeholder="Brand Name" />
-        </mat-form-field>
+  <form [formGroup]="addBrandForm" (ngSubmit)="addBrand()">
+    <div class="body">
+      <div class="title mt-3 mb-1">Brand Log</div>
+      <mat-divider class="mb-1"></mat-divider>
+      <div [ngClass]="!fileName ? 'input-file' : 'no-input-file'">
+        <input
+          type="file"
+          accept="image/png, image/jpg, image/jpeg, application/pdf"
+          #fileUplaoder
+          (change)="onFileChange($event)"
+        />
+        <span class="upload-txt"> Choose file to upload </span>
       </div>
-      <div class="col-6">
-        <div>Brand Status</div>
-        <mat-form-field appearance="fill">
-          <mat-select [(value)]="selectedStatus">
-            <mat-option [value]="status.value" *ngFor="let status of statuses">
-              {{ status.viewValue }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
+
+      <div *ngIf="fieldIsRequired" class="mt-2 error">
+        This field is required.
       </div>
+
+      <ng-container *ngIf="fileName">
+        <div class="d-flex justify-content-start align-items-center pt-2 pb-2">
+          <mat-icon class="mr-2 txt-body">image</mat-icon>
+          <div class="body-1-400 txt-heading file-name">{{ fileName }}</div>
+          <mat-icon
+            (click)="removeFile(); fileUplaoder.value = ''"
+            class="icon-remove-file"
+            appTooltip="RESET_2FA.remove_this_file"
+          >
+            cancel
+          </mat-icon>
+        </div>
+      </ng-container>
+
+      <div *ngIf="invalidFile" class="mt-2 error">
+        Invalid file. Please upload file in (PNG, PDF, JPG, JPEG) format.
+      </div>
+      <div class="title mt-4 mb-1">Brand Details</div>
+      <mat-divider class="mb-1"></mat-divider>
+
+      <div class="row">
+        <div class="col-6">
+          <div>Brand Name</div>
+          <mat-form-field appearance="outline">
+            <input formControlName="name" matInput placeholder="Brand Name" />
+          </mat-form-field>
+        </div>
+        <div class="col-6">
+          <div>Brand Status</div>
+          <mat-form-field appearance="fill">
+            <mat-select formControlName="status" [(value)]="selectedStatus">
+              <mat-option
+                [value]="status.value"
+                *ngFor="let status of statuses"
+              >
+                {{ status.viewValue }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div>Brand Description</div>
+      <mat-form-field appearance="outline">
+        <textarea
+          formControlName="description"
+          matInput
+          placeholder="Brand Description"
+        ></textarea>
+      </mat-form-field>
     </div>
 
-    <div>Brand Description</div>
-    <mat-form-field appearance="outline">
-      <textarea matInput placeholder="Brand Description"></textarea>
-    </mat-form-field>
-  </div>
-
-  <div class="footer d-flex justify-content-end">
-    <button mat-raised-button class="mr-4" (click)="closeDialog()">
-      <span>Cancel</span>
-    </button>
-    <button mat-raised-button color="primary" (click)="createBrand()">
-      <span>Create Brand</span>
-    </button>
-  </div>
+    <div class="footer d-flex justify-content-end">
+      <button mat-raised-button class="mr-4" (click)="closeDialog()">
+        <span>Cancel</span>
+      </button>
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        [disabled]="isCallAPI"
+      >
+        <span>{{ isCallAPI ? "Calling API" : "Create Brand" }} </span>
+      </button>
+    </div>
+  </form>
 </div>

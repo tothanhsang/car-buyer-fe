@@ -6,9 +6,7 @@ import { environment } from '../../environments/environment';
 })
 export class ConfigService {
   private configUrl: any = {
-    brand: {
-      list: '',
-    },
+    car_brands: `${environment.apiUrl}car-brands`,
   };
 
   getConfig() {

@@ -3,51 +3,76 @@
     <mat-icon class="icon-back" routerLink="/home">arrow_back_ios</mat-icon>
     <div class="title">Brand Details</div>
   </div>
+  <form [formGroup]="addBrandForm" (ngSubmit)="saveChange()">
+    <div class="body">
+      <div class="title mt-3 mb-1">Brand Log</div>
+      <mat-divider class="mb-1"></mat-divider>
+      <ng-container *ngIf="invalidFile">
+        <img height="64" width="64" alt="Brand Detail" src="{{ brandDetail?.img_url }}" />
+      </ng-container>
+      <div [ngClass]="!fileName ? 'input-file' : 'no-input-file'" class="mt-3">
+        <input
+          type="file"
+          accept="image/png, image/jpg, image/jpeg, application/pdf"
+          #fileUplaoder
+          (change)="onFileChange($event)"
+        />
+        <span class="upload-txt"> Choose file to upload </span>
+      </div>
 
-  <div class="body">
-    <div class="title mt-3 mb-1">Brand Log</div>
-    <mat-divider class="mb-1"></mat-divider>
-    <img height="28" alt="Logo" src="../assets/image/UCARS Logo.png" />
-    <div class="mt-3">
-      <input
-        type="file"
-        id="avatar"
-        name="avatar"
-        accept="image/png, image/jpeg"
-      />
+      <ng-container *ngIf="fileName">
+        <div class="d-flex justify-content-start align-items-center pt-2 pb-2">
+          <mat-icon class="mr-2 txt-body">image</mat-icon>
+          <div class="body-1-400 txt-heading file-name">{{ fileName }}</div>
+          <mat-icon
+            (click)="removeFile(); fileUplaoder.value = ''"
+            class="icon-remove-file"
+            appTooltip="RESET_2FA.remove_this_file"
+          >
+            cancel
+          </mat-icon>
+        </div>
+      </ng-container>
+
+      <div class="title mt-4 mb-1">Brand Details</div>
+      <mat-divider class="mb-1"></mat-divider>
+
+      <div class="row">
+        <div class="col-6">
+          <div>Brand Name</div>
+          <mat-form-field appearance="outline">
+            <input formControlName="name" matInput placeholder="Brand Name" />
+          </mat-form-field>
+        </div>
+        <div class="col-6">
+          <div>Brand Status</div>
+          <mat-form-field appearance="fill">
+            <mat-select formControlName="status" [(value)]="selectedStatus">
+              <mat-option
+                [value]="status.value"
+                *ngFor="let status of statuses"
+              >
+                {{ status.viewValue }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div>Brand Description</div>
+      <mat-form-field appearance="outline">
+        <textarea
+          formControlName="description"
+          matInput
+          placeholder="Brand Description"
+        ></textarea>
+      </mat-form-field>
     </div>
 
-    <div class="title mt-4 mb-1">Brand Details</div>
-    <mat-divider class="mb-1"></mat-divider>
-
-    <div class="row">
-      <div class="col-6">
-        <div>Brand Name</div>
-        <mat-form-field appearance="outline">
-          <input matInput placeholder="Brand Name" />
-        </mat-form-field>
-      </div>
-      <div class="col-6">
-        <div>Brand Status</div>
-        <mat-form-field appearance="fill">
-          <mat-select [(value)]="selectedStatus">
-            <mat-option [value]="status.value" *ngFor="let status of statuses">
-              {{ status.viewValue }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
+    <div class="footer">
+      <button mat-raised-button color="primary" type="submit" [disabled]="isCallAPI">
+        <span>{{ isCallAPI ? "Calling API" : "Save Changes" }} </span>
+      </button>
     </div>
-
-    <div>Brand Description</div>
-    <mat-form-field appearance="outline">
-      <textarea matInput placeholder="Brand Description"></textarea>
-    </mat-form-field>
-  </div>
-
-  <div class="footer">
-    <button mat-raised-button color="primary" (click)="saveChange()">
-      <span>Save Changes</span>
-    </button>
-  </div>
+  </form>
 </div>

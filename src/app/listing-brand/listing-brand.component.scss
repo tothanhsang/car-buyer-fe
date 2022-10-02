@@ -58,11 +58,19 @@
       }
 
       .status .dot {
+        &.inactive {
+          background-color: red;
+        }
+        
         height: 12px;
         width: 12px;
         border-radius: 50%;
         background: #1f7b4d;
         margin-right: 16px;
+      }
+
+      .icon-delete {
+        cursor: pointer;
       }
     }
   }
